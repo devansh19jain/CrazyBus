@@ -52,7 +52,7 @@ const userController = require('./controllers/userController');
 
 // Define user routes
 //router.get('/buses', userController.getAllBuses);
-router.get('/search-buses', userController.searchBuses);
+//router.get('/search-buses', userController.searchBuses);
 
 module.exports = router;
 
