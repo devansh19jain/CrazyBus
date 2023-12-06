@@ -23,8 +23,9 @@ const searchRoute = require('./routes/search');
 
 const registerRouter = require('./routes/register');
 const stripeRoute = require("./routes/stripePayment");
-const bookingRoute = require("./routes/booking")
-
+const bookingRoute = require("./routes/booking");
+const ticketRoute = require("./routes/ticket");
+const getUserRoute = require("./routes/getUser");
 //--------------------------------------------------------
 
 
@@ -68,6 +69,8 @@ app.use('/user', passport.authenticate('jwt', { session: false }), loggedInPage)
 app.use('/', searchRoute);
 app.use('/', stripeRoute);
 app.use('/', bookingRoute);
+app.use('/', ticketRoute);
+app.use('/',getUserRoute);
 //verifying token
 
 app.get('/api/user', verifyToken, (req, res) => {

@@ -4,7 +4,7 @@
 
 // // Your other imports and code...
 
-
+//
 // exports.makePayment = (req, res) => {
 //   const { token, selectedSeat } = req.body;
 //   const amount = 25;

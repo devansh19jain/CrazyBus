@@ -1,23 +1,28 @@
-const asyncHandler = require('express-async-handler');
-const Bus = require('../models/Buses');
+// Import necessary modules
+const express = require('express');
+const router = express.Router();
+const User = require('../models/User'); // Import the User model
 
-const getAllBuses = asyncHandler(async (req, res) => {
-    const buses = await Bus.find();
-    res.status(200).json({ buses });
-});
+// Controller to find user by email
+exports.findUserByEmail = async (req, res) => {
+  try {
+    const { email } = req.body;
 
-const searchBuses = asyncHandler(async (req, res) => {
-    const { source, destination } = req.query;
+    // Find the user by email
+    const user = await User.findOne({ email });
 
-    if (!source || !destination) {
-        return res.status(400).json({ error: 'Source and destination are required for search.' });
+    if (!user) {
+      // If user not found, send an error response
+      return res.status(404).json({ success: false, message: 'User not found with the provided email' });
     }
 
-    const filteredBuses = await Bus.find({ source, destination });
-    res.json(filteredBuses);
-});
-
-module.exports = {
-    getAllBuses,
-    searchBuses,
+    // If user found, send the user details as a response
+    return res.status(200).json({ success: true, user });
+  } catch (error) {
+    console.error('Error finding user by email:', error);
+    return res.status(500).json({ success: false, message: 'Internal server error' });
+  }
 };
+
+// Export the router
+module.exports = router;

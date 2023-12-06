@@ -7,20 +7,30 @@ const BookingSchema = new Schema({
         //required: true,
         //unique: true
     },
-    user: {
+    userId: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        //ref: 'User',
         //required: true
     },
     busId: {
         type: Schema.Types.ObjectId,
-        ref: 'Bus',
+        //ref: 'Bus',
        // required: true
     },
     date: {
-        type: Date,
-        default: Date.now
-    }
+        type: String,
+        //default: Date.now
+    },
+    username: {
+        type: String,
+    },
+    time: {
+        type:String,
+    },
+    busNo:{
+        type: String,
+    },
+
 });
 
 const Booking = mongoose.model('Booking', BookingSchema);

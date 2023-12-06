@@ -4,12 +4,18 @@ const Booking = require('../models/Bookings'); // Import your Booking model
 // Create a new booking
 exports.createBooking = async (req, res) => {
   try {
-   const { busId, seatNo } = req.body;
+   const { busId, seatNo, userId, username, date, time,busNo  } = req.body;
    console.log(busId,seatNo);
     // Assuming you have a Booking model with fields like busId and seatNo
     const booking = new Booking({
       busId,
       seatNo,
+      busNo,
+      userId,
+      username,
+      date,
+      time
+
       // Add other fields as needed
     });
 
