@@ -1,6 +1,4 @@
 // Import necessary modules
-const express = require('express');
-const router = express.Router();
 const User = require('../models/User'); // Import the User model
 
 // Controller to find user by email
@@ -25,4 +23,4 @@ exports.findUserByEmail = async (req, res) => {
 };
 
 // Export the router
-module.exports = router;
+//module.exports = router;
