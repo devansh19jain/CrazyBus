@@ -1,25 +1,25 @@
-// ticketController.js
+// Assuming you have a Booking model
 const Booking = require('../models/Bookings');
 
-// Function to find the latest booked bus by the user
 exports.findBus = async (req, res) => {
   try {
-    const { busId, user } = req.body;
+    const { userId, busId } = req.body;
 
-    // Find all bookings for the given user, sorted by createdAt in descending order
-    const latestBooking = await Booking.findOne({ user })
+    // Find all bookings for the given user and bus, sorted by createdAt in descending order
+    const allBookings = await Booking.find({ userId, busId })
       .sort({ createdAt: -1 })
       .populate('busId'); // Assuming there is a reference to the busId in the Booking model
 
-    if (!latestBooking) {
-      // No bookings found for the user
-      return res.status(404).json({ success: false, message: 'No booked buses found for the user' });
-    }
+    console.log(allBookings);
 
-    // Return the latest booked bus
-    return res.status(200).json({ success: true, latestBookedBus: latestBooking.busId });
+    if (allBookings.length > 0 && allBookings[0].busId) {
+      const lastBookedBus = allBookings[0].busId; // Get the latest booked bus
+      res.status(200).json({ success: true, latestBookedBus: lastBookedBus });
+    } else {
+      res.status(404).json({ success: false, message: 'No booked buses found for the user and bus' });
+    }
   } catch (error) {
     console.error('Error finding latest booked bus:', error);
-    return res.status(500).json({ success: false, message: 'Internal server error' });
+    res.status(500).json({ success: false, message: 'Internal server error' });
   }
 };
